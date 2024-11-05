@@ -50,9 +50,12 @@ const QuizScreen = ({navigation, route}) => {
   useEffect(() => {
     if (route.params?.update) {
       setIsLoading(true);
-      loadQuizData();
+      loadQuizData().then(() => {
+        // Reset parameter update setelah data dimuat
+        navigation.setParams({update: false});
+      });
     }
-  }, [route.params?.update, loadQuizData]);
+  }, [route.params?.update, loadQuizData, navigation]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
