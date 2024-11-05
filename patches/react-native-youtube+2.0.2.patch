@@ -1,0 +1,334 @@
+diff --git a/node_modules/react-native-youtube/YouTube.android.js b/node_modules/react-native-youtube/YouTube.android.js
+index 0430b71..a9693fd 100644
+--- a/node_modules/react-native-youtube/YouTube.android.js
++++ b/node_modules/react-native-youtube/YouTube.android.js
+@@ -2,7 +2,6 @@ import React from 'react';
+ import PropTypes from 'prop-types';
+ import ReactNative, {
+   View,
+-  ViewPropTypes,
+   Text,
+   StyleSheet,
+   requireNativeComponent,
+@@ -38,7 +37,7 @@ export default class YouTube extends React.Component {
+     onChangeState: PropTypes.func,
+     onChangeQuality: PropTypes.func,
+     onChangeFullscreen: PropTypes.func,
+-    style: ViewPropTypes.style,
++    style: PropTypes.any,
+   };
+ 
+   static defaultProps = {
+diff --git a/node_modules/react-native-youtube/android/build/.transforms/0cca3ab7c5268a962d5498a36607bc21/results.bin b/node_modules/react-native-youtube/android/build/.transforms/0cca3ab7c5268a962d5498a36607bc21/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/.transforms/0cca3ab7c5268a962d5498a36607bc21/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/react-native-youtube/android/build/.transforms/0cca3ab7c5268a962d5498a36607bc21/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-youtube/android/build/.transforms/0cca3ab7c5268a962d5498a36607bc21/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..3a94b4e
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/.transforms/0cca3ab7c5268a962d5498a36607bc21/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/react-native-youtube/android/build/.transforms/0ffe5f33d6bf7aa75e62bcf10c9c8e15/results.bin b/node_modules/react-native-youtube/android/build/.transforms/0ffe5f33d6bf7aa75e62bcf10c9c8e15/results.bin
+new file mode 100644
+index 0000000..61a58fa
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/.transforms/0ffe5f33d6bf7aa75e62bcf10c9c8e15/results.bin
+@@ -0,0 +1 @@
++i/classes_dex
+diff --git a/node_modules/react-native-youtube/android/build/.transforms/85cab9e3265ef6268ae4dd36e889b532/results.bin b/node_modules/react-native-youtube/android/build/.transforms/85cab9e3265ef6268ae4dd36e889b532/results.bin
+new file mode 100644
+index 0000000..e3f0ff0
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/.transforms/85cab9e3265ef6268ae4dd36e889b532/results.bin
+@@ -0,0 +1 @@
++i/classes_global-synthetics
+diff --git a/node_modules/react-native-youtube/android/build/generated/source/buildConfig/debug/com/inprogress/reactnativeyoutube/BuildConfig.java b/node_modules/react-native-youtube/android/build/generated/source/buildConfig/debug/com/inprogress/reactnativeyoutube/BuildConfig.java
+new file mode 100644
+index 0000000..a916853
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/generated/source/buildConfig/debug/com/inprogress/reactnativeyoutube/BuildConfig.java
+@@ -0,0 +1,10 @@
++/**
++ * Automatically generated file. DO NOT MODIFY
++ */
++package com.inprogress.reactnativeyoutube;
++
++public final class BuildConfig {
++  public static final boolean DEBUG = Boolean.parseBoolean("true");
++  public static final String LIBRARY_PACKAGE_NAME = "com.inprogress.reactnativeyoutube";
++  public static final String BUILD_TYPE = "debug";
++}
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml b/node_modules/react-native-youtube/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml
+new file mode 100644
+index 0000000..ab91795
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.inprogress.reactnativeyoutube" >
++
++    <uses-sdk android:minSdkVersion="21" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/output-metadata.json b/node_modules/react-native-youtube/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/output-metadata.json
+new file mode 100644
+index 0000000..d3221e3
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/output-metadata.json
+@@ -0,0 +1,18 @@
++{
++  "version": 3,
++  "artifactType": {
++    "type": "AAPT_FRIENDLY_MERGED_MANIFESTS",
++    "kind": "Directory"
++  },
++  "applicationId": "com.inprogress.reactnativeyoutube",
++  "variantName": "debug",
++  "elements": [
++    {
++      "type": "SINGLE",
++      "filters": [],
++      "attributes": [],
++      "outputFile": "AndroidManifest.xml"
++    }
++  ],
++  "elementType": "File"
++}
+\ No newline at end of file
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/aar_metadata/debug/aar-metadata.properties b/node_modules/react-native-youtube/android/build/intermediates/aar_metadata/debug/aar-metadata.properties
+new file mode 100644
+index 0000000..776557e
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/aar_metadata/debug/aar-metadata.properties
+@@ -0,0 +1,5 @@
++aarFormatVersion=1.0
++aarMetadataVersion=1.0
++minCompileSdk=1
++minCompileSdkExtension=0
++minAndroidGradlePluginVersion=1.0.0
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/annotation_processor_list/debug/annotationProcessors.json b/node_modules/react-native-youtube/android/build/intermediates/annotation_processor_list/debug/annotationProcessors.json
+new file mode 100644
+index 0000000..9e26dfe
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/annotation_processor_list/debug/annotationProcessors.json
+@@ -0,0 +1 @@
++{}
+\ No newline at end of file
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/compile_library_classes_jar/debug/classes.jar b/node_modules/react-native-youtube/android/build/intermediates/compile_library_classes_jar/debug/classes.jar
+new file mode 100644
+index 0000000..337f9c4
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/compile_library_classes_jar/debug/classes.jar differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/compile_r_class_jar/debug/R.jar b/node_modules/react-native-youtube/android/build/intermediates/compile_r_class_jar/debug/R.jar
+new file mode 100644
+index 0000000..06bd5cc
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/compile_r_class_jar/debug/R.jar differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/compile_symbol_list/debug/R.txt b/node_modules/react-native-youtube/android/build/intermediates/compile_symbol_list/debug/R.txt
+new file mode 100644
+index 0000000..e3e28a4
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/compile_symbol_list/debug/R.txt
+@@ -0,0 +1,2 @@
++int id relativelayout 0x0
++int layout youtube_layout 0x0
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/compiled_local_resources/debug/out/layout_youtube_layout.xml.flat b/node_modules/react-native-youtube/android/build/intermediates/compiled_local_resources/debug/out/layout_youtube_layout.xml.flat
+new file mode 100644
+index 0000000..123ce51
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/compiled_local_resources/debug/out/layout_youtube_layout.xml.flat differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties b/node_modules/react-native-youtube/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+new file mode 100644
+index 0000000..6e5a831
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+@@ -0,0 +1,2 @@
++#Sat Apr 13 16:40:58 WITA 2024
++com.inprogress.reactnativeyoutube.react-native-youtube-main-6\:/layout/youtube_layout.xml=C\:\\Users\\Anggi Widiantara\\Documents\\Project\\ASLingo\\node_modules\\react-native-youtube\\android\\build\\intermediates\\packaged_res\\debug\\layout\\youtube_layout.xml
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml b/node_modules/react-native-youtube/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+new file mode 100644
+index 0000000..bd69bad
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\res"><file name="youtube_layout" path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\res\layout\youtube_layout.xml" qualifiers="" type="layout"/></source></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\debug\res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\debug\res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\build\generated\res\resValues\debug"/></dataSet><mergedItems/></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml b/node_modules/react-native-youtube/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+new file mode 100644
+index 0000000..69e1ab3
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\jniLibs"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\debug\jniLibs"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/incremental/mergeDebugShaders/merger.xml b/node_modules/react-native-youtube/android/build/intermediates/incremental/mergeDebugShaders/merger.xml
+new file mode 100644
+index 0000000..41666b1
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/incremental/mergeDebugShaders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\shaders"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\debug\shaders"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/incremental/packageDebugAssets/merger.xml b/node_modules/react-native-youtube/android/build/intermediates/incremental/packageDebugAssets/merger.xml
+new file mode 100644
+index 0000000..d20179c
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/incremental/packageDebugAssets/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\assets"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\debug\assets"/></dataSet><dataSet config="generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\build\intermediates\shader_assets\debug\out"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/BuildConfig.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/BuildConfig.class
+new file mode 100644
+index 0000000..dc8ed75
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/BuildConfig.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/ReactNativeYouTube.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/ReactNativeYouTube.class
+new file mode 100644
+index 0000000..3851c01
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/ReactNativeYouTube.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/VideoFragment.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/VideoFragment.class
+new file mode 100644
+index 0000000..63079b2
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/VideoFragment.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeManager.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeManager.class
+new file mode 100644
+index 0000000..5c29cae
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeManager.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeModule$1.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeModule$1.class
+new file mode 100644
+index 0000000..ceea7ab
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeModule$1.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeModule$2.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeModule$2.class
+new file mode 100644
+index 0000000..8c38ffc
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeModule$2.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeModule$3.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeModule$3.class
+new file mode 100644
+index 0000000..2710105
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeModule$3.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeModule.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeModule.class
+new file mode 100644
+index 0000000..e827c6d
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeModule.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubePlayerController$1.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubePlayerController$1.class
+new file mode 100644
+index 0000000..7254461
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubePlayerController$1.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubePlayerController.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubePlayerController.class
+new file mode 100644
+index 0000000..2671f54
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubePlayerController.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeStandaloneModule$1.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeStandaloneModule$1.class
+new file mode 100644
+index 0000000..b0b8747
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeStandaloneModule$1.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeStandaloneModule.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeStandaloneModule.class
+new file mode 100644
+index 0000000..35d67b0
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeStandaloneModule.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeView.class b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeView.class
+new file mode 100644
+index 0000000..859cead
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/javac/debug/classes/com/inprogress/reactnativeyoutube/YouTubeView.class differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/local_only_symbol_list/debug/R-def.txt b/node_modules/react-native-youtube/android/build/intermediates/local_only_symbol_list/debug/R-def.txt
+new file mode 100644
+index 0000000..43f8047
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/local_only_symbol_list/debug/R-def.txt
+@@ -0,0 +1,4 @@
++R_DEF: Internal format may change without notice
++local
++id relativelayout
++layout youtube_layout
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt b/node_modules/react-native-youtube/android/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
+new file mode 100644
+index 0000000..3698c4a
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
+@@ -0,0 +1,7 @@
++1<?xml version="1.0" encoding="utf-8"?>
++2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++3    package="com.inprogress.reactnativeyoutube" >
++4
++5    <uses-sdk android:minSdkVersion="21" />
++6
++7</manifest>
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml b/node_modules/react-native-youtube/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml
+new file mode 100644
+index 0000000..ab91795
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.inprogress.reactnativeyoutube" >
++
++    <uses-sdk android:minSdkVersion="21" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/navigation_json/debug/navigation.json b/node_modules/react-native-youtube/android/build/intermediates/navigation_json/debug/navigation.json
+new file mode 100644
+index 0000000..0637a08
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/navigation_json/debug/navigation.json
+@@ -0,0 +1 @@
++[]
+\ No newline at end of file
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/packaged_res/debug/layout/youtube_layout.xml b/node_modules/react-native-youtube/android/build/intermediates/packaged_res/debug/layout/youtube_layout.xml
+new file mode 100644
+index 0000000..384d74b
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/packaged_res/debug/layout/youtube_layout.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:id="@+id/relativelayout"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++</RelativeLayout>
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar b/node_modules/react-native-youtube/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar
+new file mode 100644
+index 0000000..d7303f2
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar differ
+diff --git a/node_modules/react-native-youtube/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt b/node_modules/react-native-youtube/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt
+new file mode 100644
+index 0000000..600548a
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt
+@@ -0,0 +1,3 @@
++com.inprogress.reactnativeyoutube
++id relativelayout
++layout youtube_layout
+diff --git a/node_modules/react-native-youtube/android/build/outputs/logs/manifest-merger-debug-report.txt b/node_modules/react-native-youtube/android/build/outputs/logs/manifest-merger-debug-report.txt
+new file mode 100644
+index 0000000..86fc08d
+--- /dev/null
++++ b/node_modules/react-native-youtube/android/build/outputs/logs/manifest-merger-debug-report.txt
+@@ -0,0 +1,17 @@
++-- Merging decision tree log ---
++manifest
++ADDED from C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\AndroidManifest.xml:1:1-4:12
++INJECTED from C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\AndroidManifest.xml:1:1-4:12
++	package
++		ADDED from C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\AndroidManifest.xml:2:5-48
++		INJECTED from C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\AndroidManifest.xml
++	xmlns:android
++		ADDED from C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\AndroidManifest.xml:1:11-69
++uses-sdk
++INJECTED from C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\AndroidManifest.xml reason: use-sdk injection requested
++INJECTED from C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\AndroidManifest.xml
++INJECTED from C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\AndroidManifest.xml
++	android:targetSdkVersion
++		INJECTED from C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\AndroidManifest.xml
++	android:minSdkVersion
++		INJECTED from C:\Users\Anggi Widiantara\Documents\Project\ASLingo\node_modules\react-native-youtube\android\src\main\AndroidManifest.xml
+diff --git a/node_modules/react-native-youtube/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin b/node_modules/react-native-youtube/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
+new file mode 100644
+index 0000000..c8be850
+Binary files /dev/null and b/node_modules/react-native-youtube/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin differ
