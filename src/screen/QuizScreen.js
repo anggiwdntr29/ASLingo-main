@@ -33,9 +33,7 @@ const QuizScreen = ({navigation, route}) => {
         setData(response.quiz);
         setHighestScore(response.highest_score ?? 0);
         setLatestScore(response.latest_score ?? 0);
-        console.log(response.quiz);
       } catch (error) {
-        console.error('Error loading quiz data:', error);
       } finally {
         setIsLoading(false);
         setRefreshing(false);
