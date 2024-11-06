@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React, {useContext} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -17,30 +16,13 @@ import AboutScreen from '../screen/AboutScreen';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const TabBarIcon = ({focused}) => (
+  <Icon name={focused ? 'home' : 'home-outline'} size={28} color={'#008DDA'} />
+);
+
+const renderTabBarIcon = props => <TabBarIcon {...props} />;
+
 const TabNavigator = ({navigation}) => {
-  // useEffect(() => {
-  //   const refreshTab = currentTab => {
-  //     navigation.reset({
-  //       index: 0,
-  //       routes: [{name: currentTab}],
-  //     });
-  //     setRefreshing(false);
-  //   };
-
-  //   if (refreshing) {
-  //     refreshTab(currentTab);
-  //     setRefreshing(false);
-  //   }
-  // }, [currentTab, refreshing, navigation]);
-
-  // const isTabFocused = useIsFocused();
-
-  // useEffect(() => {
-  //   if (isTabFocused) {
-  //     setRefreshing(true);
-  //   }
-  // }, [isTabFocused]);
-
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -48,27 +30,9 @@ const TabNavigator = ({navigation}) => {
         component={HomeScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused}) =>
-            focused ? (
-              <Icon name="home" size={28} color={'#008DDA'} />
-            ) : (
-              <Icon name="home-outline" size={28} color={'#008DDA'} />
-            ),
+          tabBarIcon: renderTabBarIcon,
         }}
       />
-      {/* <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({focused}) =>
-            focused ? (
-              <Icon name="person" size={28} color={'#008DDA'} />
-            ) : (
-              <Icon name="person-outline" size={28} color={'#008DDA'} />
-            ),
-        }}
-      /> */}
     </Tab.Navigator>
   );
 };
