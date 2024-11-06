@@ -1,7 +1,7 @@
 import React, {createContext, useState, useEffect} from 'react';
 import axios from 'axios';
-import {useNavigation, CommonActions} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation, CommonActions} from '@react-navigation/native';
 import {Center, Image, Spinner} from 'native-base';
 import Logo from '../image/Logo.png';
 
@@ -19,8 +19,8 @@ const AuthProvider = ({children}) => {
     AsyncStorage.getItem('user')
       .then(userString => {
         if (userString) {
-          const asyncuser = JSON.parse(userString);
-          setUser(asyncuser);
+          const dataUser = JSON.parse(userString);
+          setUser(dataUser);
         }
         setLoading(false);
       })
@@ -37,8 +37,8 @@ const AuthProvider = ({children}) => {
         password,
       });
 
-      const Datauser = response.data;
-      setUser(Datauser);
+      const dataUser = response.data;
+      setUser(dataUser);
 
       if (user) {
         AsyncStorage.setItem('user', JSON.stringify(user));
@@ -66,7 +66,6 @@ const AuthProvider = ({children}) => {
       });
       AsyncStorage.removeItem('user');
       setUser(null);
-
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
@@ -78,7 +77,6 @@ const AuthProvider = ({children}) => {
     }
   };
 
-  //Splah Screen
   if (loading) {
     return (
       <Center flex={1} backgroundColor={'Primary'}>
