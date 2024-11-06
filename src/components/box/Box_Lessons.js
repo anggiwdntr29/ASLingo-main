@@ -7,19 +7,16 @@ import {
   Text,
   VStack,
   View,
-  Stack,
   Image,
   ZStack,
   Center,
 } from 'native-base';
-import CustomSkeleton from '../skeleton';
 import {toUpperCase} from '../formatter';
 import {RefreshControl} from 'react-native';
 
 const Box_Lessons = ({
   navigation,
   data,
-  isLoading,
   handleRefresh,
   isRefreshing,
   setMessage,
@@ -124,14 +121,7 @@ const Box_Lessons = ({
 
   return (
     <View flex={1} pt={1.5}>
-      {isLoading ? (
-        <Stack>
-          <CustomSkeleton />
-          <CustomSkeleton />
-          <CustomSkeleton />
-          <CustomSkeleton />
-        </Stack>
-      ) : renderItem.length > 0 ? (
+      {renderItem.length > 0 ? (
         <FlatList
           refreshControl={
             <RefreshControl

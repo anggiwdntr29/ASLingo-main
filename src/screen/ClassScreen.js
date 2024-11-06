@@ -5,6 +5,7 @@ import {Get_Lessons} from '../api/Get_Lessons';
 import {AuthContext} from '../api/AuthContext';
 import {showMessage} from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {CustomHeader, CustomSkeleton} from '../components';
 
 const DangerIcon = () => (
   <Stack pr={1}>
@@ -17,18 +18,12 @@ const ClassScreen = ({route, navigation}) => {
   const {user} = useContext(AuthContext);
   const [lessons, setLessons] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isRefreshing, setIsRefreshing] = useState(false);
   const [message, setMessage] = useState('');
 
   const fetchLessons = useCallback(async () => {
-    if (!user.auth.access_token) {
-      return;
-    }
+    setIsLoading(true);
 
     try {
-      setIsLoading(true);
-      setIsRefreshing(true);
-
       const fetchedData = await Get_Lessons(id, user.auth.access_token);
       const lessonsData =
         fetchedData.length % 2 !== 0
@@ -40,11 +35,11 @@ const ClassScreen = ({route, navigation}) => {
       setMessage('Failed to load lessons. Please try again.');
     } finally {
       setIsLoading(false);
-      setIsRefreshing(false);
     }
   }, [id, user.auth.access_token]);
 
   useEffect(() => {
+    setIsLoading(true);
     fetchLessons();
   }, [fetchLessons]);
 
@@ -52,30 +47,39 @@ const ClassScreen = ({route, navigation}) => {
     if (message && message !== 'hide') {
       showMessage({
         icon: DangerIcon,
-        duration: 1000,
+        duration: 2000,
         message: message,
         type: 'danger',
-        titleStyleStyle: {fontSize: 8},
+        titleStyle: {fontSize: 12},
       });
 
-      const timer = setTimeout(() => {
-        setMessage('');
-      }, 100);
-
+      const timer = setTimeout(() => setMessage(''), 2000);
       return () => clearTimeout(timer);
     }
   }, [message]);
 
   return (
     <Stack backgroundColor="Secondary" flex={1}>
-      <Box_Lessons
-        isRefreshing={isRefreshing}
-        setMessage={setMessage}
-        handleRefresh={fetchLessons}
-        navigation={navigation}
-        data={lessons}
-        isLoading={isLoading}
+      <CustomHeader
+        goBack={() => navigation.goBack()}
+        text={'Lessons'}
+        // refreshItem={fetchLessons}
+        // isLoading={isLoading}
       />
+      {isLoading ? (
+        <>
+          <CustomSkeleton />
+        </>
+      ) : (
+        <Box_Lessons
+          isRefreshing={isLoading}
+          setMessage={setMessage}
+          handleRefresh={fetchLessons}
+          navigation={navigation}
+          data={lessons}
+          isLoading={isLoading}
+        />
+      )}
     </Stack>
   );
 };

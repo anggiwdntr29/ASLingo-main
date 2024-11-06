@@ -9,7 +9,9 @@ import Box_ListLessons from './box/Box_ListLessons';
 import Box_Option from './box/Box_Option';
 import Box_Score from './box/Box_Score';
 import {toLowerCase} from './formatter';
+import CustomHeader from './header/CustomHeader';
 import HeaderContent from './header/HeaderContent';
+import CustomSkeleton from './skeleton';
 import CustomVideoPlayer from './videoPlayer';
 
 export {
@@ -26,4 +28,6 @@ export {
   ExitAlertDialog,
   ErrorAlertDialog,
   FinishAlertDialog,
+  CustomHeader,
+  CustomSkeleton,
 };

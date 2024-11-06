@@ -7,7 +7,7 @@ import {RefreshControl} from 'react-native';
 import {createThumbnail} from 'react-native-create-thumbnail';
 
 const HomeScreen = ({navigation}) => {
-  const {user} = useContext(AuthContext);
+  const {user, logout} = useContext(AuthContext);
   const [homeData, setHomeData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -52,7 +52,7 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <Stack flex={1}>
-      <HeaderContent data={user} />
+      <HeaderContent data={user} logout={logout} />
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />

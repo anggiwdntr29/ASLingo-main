@@ -11,7 +11,6 @@ import DetailLessonsScreen from '../screen/DetailLessonsScreen';
 import QuizScreen from '../screen/QuizScreen';
 import DetailQuizScreen from '../screen/DetailQuizScreen';
 import {AuthContext} from '../api/AuthContext';
-import ProfileScreen from '../screen/ProfileScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AboutScreen from '../screen/AboutScreen';
 
@@ -57,7 +56,7 @@ const TabNavigator = ({navigation}) => {
             ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
@@ -69,13 +68,14 @@ const TabNavigator = ({navigation}) => {
               <Icon name="person-outline" size={28} color={'#008DDA'} />
             ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };
 
 const Routes = () => {
   const {user} = useContext(AuthContext);
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -111,11 +111,10 @@ const Routes = () => {
         component={LoginScreen}
         options={{headerShown: false}}
       />
-
       <Stack.Screen
         name="Class"
         component={ClassScreen}
-        options={{title: 'Lessons'}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="Lessons"
