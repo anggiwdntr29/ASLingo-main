@@ -5,7 +5,7 @@ import {Get_Lessons} from '../api/Get_Lessons';
 import {AuthContext} from '../api/AuthContext';
 import {showMessage} from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {CustomHeader, CustomSkeleton} from '../components';
+import {CustomHeader} from '../components';
 
 const DangerIcon = () => (
   <Stack pr={1}>
@@ -22,7 +22,6 @@ const ClassScreen = ({route, navigation}) => {
 
   const fetchLessons = useCallback(async () => {
     setIsLoading(true);
-
     try {
       const fetchedData = await Get_Lessons(id, user.auth.access_token);
       const lessonsData =
@@ -39,7 +38,6 @@ const ClassScreen = ({route, navigation}) => {
   }, [id, user.auth.access_token]);
 
   useEffect(() => {
-    setIsLoading(true);
     fetchLessons();
   }, [fetchLessons]);
 
@@ -60,26 +58,15 @@ const ClassScreen = ({route, navigation}) => {
 
   return (
     <Stack backgroundColor="Secondary" flex={1}>
-      <CustomHeader
-        goBack={() => navigation.goBack()}
-        text={'Lessons'}
-        // refreshItem={fetchLessons}
-        // isLoading={isLoading}
+      <CustomHeader goBack={() => navigation.goBack()} text={'Lessons'} />
+      <Box_Lessons
+        isRefreshing={isLoading}
+        setMessage={setMessage}
+        handleRefresh={fetchLessons}
+        navigation={navigation}
+        data={lessons}
+        isLoading={isLoading}
       />
-      {isLoading ? (
-        <>
-          <CustomSkeleton />
-        </>
-      ) : (
-        <Box_Lessons
-          isRefreshing={isLoading}
-          setMessage={setMessage}
-          handleRefresh={fetchLessons}
-          navigation={navigation}
-          data={lessons}
-          isLoading={isLoading}
-        />
-      )}
     </Stack>
   );
 };

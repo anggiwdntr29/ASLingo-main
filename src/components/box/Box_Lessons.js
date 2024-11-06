@@ -17,6 +17,7 @@ import {RefreshControl} from 'react-native';
 const Box_Lessons = ({
   navigation,
   data,
+  isLoading,
   handleRefresh,
   isRefreshing,
   setMessage,

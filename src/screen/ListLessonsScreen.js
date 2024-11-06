@@ -5,6 +5,7 @@ import {AuthContext} from '../api/AuthContext';
 import {Get_ListLessons} from '../api/Get_Lessons';
 import {showMessage} from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {CustomHeader} from '../components';
 
 const DangerIcon = () => (
   <Stack pr={1}>
@@ -17,18 +18,15 @@ const ListLessonsScreen = ({route, navigation}) => {
   const {user} = useContext(AuthContext);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isRefreshing, setIsRefreshing] = useState(false);
   const [openQuiz, setOpenQuiz] = useState(false);
   const [message, setMessage] = useState('');
 
   const loadData = useCallback(async () => {
     setIsLoading(true);
-    setIsRefreshing(true);
     if (user.auth.access_token) {
       const response = await Get_ListLessons(id, user.auth.access_token);
 
       setData(response || []);
-      setIsRefreshing(false);
 
       const allDone = response?.every(item => item.is_done === 1);
       setOpenQuiz(allDone);
@@ -65,10 +63,11 @@ const ListLessonsScreen = ({route, navigation}) => {
 
   return (
     <VStack backgroundColor={'Secondary'} flex={1}>
+      <CustomHeader goBack={() => navigation.goBack()} text={'Lessons'} />
       <Box_ListLessons
         openQuiz={openQuiz}
         setMessage={setMessage}
-        isRefreshing={isRefreshing}
+        isRefreshing={isLoading}
         handleRefresh={handleRefresh}
         navigation={navigation}
         id={id}
