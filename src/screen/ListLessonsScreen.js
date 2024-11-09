@@ -45,6 +45,7 @@ const ListLessonsScreen = ({route, navigation}) => {
   useEffect(() => {
     if (route.params?.update) {
       loadData();
+      setUpdateClass(true);
       navigation.setParams({update: false});
     }
   }, [route.params?.update, loadData, navigation]);
@@ -67,9 +68,17 @@ const ListLessonsScreen = ({route, navigation}) => {
     }
   }, [message]);
 
+  const handleGoBackWithParams = () => {
+    navigation.navigate({
+      name: route.params.previousScreen || 'Class',
+      params: {update: updateClass},
+      merge: true,
+    });
+  };
+
   return (
     <VStack backgroundColor={'Secondary'} flex={1}>
-      <CustomHeader goBack={() => navigation.goBack()} text={'Lessons'} />
+      <CustomHeader goBack={handleGoBackWithParams} text={'Lessons'} />
       <Box_ListLessons
         isRefreshing={isLoading}
         setMessage={setMessage}

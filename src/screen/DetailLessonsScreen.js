@@ -89,7 +89,7 @@ const DetailLessonsScreen = ({route, navigation}) => {
   const handleGoBackWithParams = () => {
     navigation.navigate({
       name: route.params.previousScreen || 'Lessons',
-      params: {completed: isChecked, update: refreshOnBack},
+      params: {update: refreshOnBack},
       merge: true,
     });
   };

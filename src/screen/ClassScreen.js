@@ -42,6 +42,13 @@ const ClassScreen = ({route, navigation}) => {
   }, [fetchLessons]);
 
   useEffect(() => {
+    if (route.params?.update) {
+      fetchLessons();
+      navigation.setParams({update: false});
+    }
+  }, [route.params?.update, fetchLessons, navigation]);
+
+  useEffect(() => {
     if (message && message !== 'hide') {
       showMessage({
         icon: DangerIcon,
