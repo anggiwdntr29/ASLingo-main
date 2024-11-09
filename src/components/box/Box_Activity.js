@@ -2,8 +2,19 @@ import React from 'react';
 import {HStack, Heading, Stack, Skeleton, Text} from 'native-base';
 import CustomVideoPlayer from '../videoPlayer';
 import {toUpperCase} from '../formatter';
+import useDeviceType from '../viewport';
 
 const Box_Activity = ({data, isLoading, thumbnail}) => {
+  const {smallPhone, mediumPhone, isTablet} = useDeviceType();
+
+  const videoHeight = smallPhone
+    ? '180px'
+    : mediumPhone
+    ? '240px'
+    : isTablet
+    ? '400px'
+    : '240px';
+
   return (
     <Stack px={6} py={3}>
       <Heading color={'Primary'} fontSize={'md'} fontWeight={600} mb={2}>
@@ -29,7 +40,7 @@ const Box_Activity = ({data, isLoading, thumbnail}) => {
               </Heading>
             </HStack>
             <Stack
-              h={'240px'}
+              h={videoHeight}
               borderWidth={2}
               borderColor={'Primary'}
               borderBottomRadius={'lg'}
@@ -41,7 +52,7 @@ const Box_Activity = ({data, isLoading, thumbnail}) => {
             </Stack>
           </Stack>
         ) : (
-          <Stack h={'240px'}>
+          <Stack h={videoHeight}>
             <HStack
               h={'20%'}
               space={2}
@@ -49,9 +60,9 @@ const Box_Activity = ({data, isLoading, thumbnail}) => {
               px={6}
               borderTopRadius={'lg'}
               alignItems={'center'}>
-              {/* <Heading color={'Text'} fontSize={'xl'}>
-                {toUpperCase(data.text_en)}
-              </Heading> */}
+              <Heading color={'Text'} fontSize={'xl'}>
+                -
+              </Heading>
             </HStack>
             <Stack
               h={'80%'}
@@ -61,11 +72,7 @@ const Box_Activity = ({data, isLoading, thumbnail}) => {
               justifyContent={'center'}
               alignItems={'center'}
               p={2}>
-              <Text>No Activity Recent</Text>
-              {/* <CustomVideoPlayer
-                videoUri={data.video}
-                thumbnailUri={thumbnail}
-              /> */}
+              <Text>No Recent Activity</Text>
             </Stack>
           </Stack>
         )}

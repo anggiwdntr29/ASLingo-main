@@ -6,6 +6,9 @@ import {AuthContext} from '../api/AuthContext';
 import {showMessage} from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {CustomHeader} from '../components';
+import {BackHandler} from 'react-native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import _ from 'lodash';
 
 const DangerIcon = () => (
   <Stack pr={1}>
@@ -13,9 +16,11 @@ const DangerIcon = () => (
   </Stack>
 );
 
-const ClassScreen = ({route, navigation}) => {
+const ClassScreen = ({route}) => {
   const {id} = route.params;
   const {user} = useContext(AuthContext);
+  const navigation = useNavigation();
+
   const [lessons, setLessons] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -72,6 +77,22 @@ const ClassScreen = ({route, navigation}) => {
       merge: true,
     });
   };
+
+  const throttledHandleGoBack = _.throttle(handleGoBackWithParams, 1000);
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        throttledHandleGoBack();
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, [throttledHandleGoBack]),
+  );
 
   return (
     <Stack backgroundColor="Secondary" flex={1}>

@@ -18,6 +18,10 @@ import {showMessage} from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {createThumbnail} from 'react-native-create-thumbnail';
 import {CustomHeader, CustomVideoPlayer} from '../components';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {BackHandler} from 'react-native';
+import _ from 'lodash';
+import useDeviceType from '../components/viewport';
 
 const DangerIcon = () => (
   <Stack pr={1}>
@@ -31,9 +35,10 @@ const SuccessIcon = () => (
   </Stack>
 );
 
-const DetailLessonsScreen = ({route, navigation}) => {
+const DetailLessonsScreen = ({route}) => {
   const {id_materials, id} = route.params;
   const {user} = useContext(AuthContext);
+  const navigation = useNavigation();
 
   const [data, setData] = useState({});
   const [nextId, setNextId] = useState('');
@@ -43,6 +48,31 @@ const DetailLessonsScreen = ({route, navigation}) => {
   const [message, setMessage] = useState('');
   const [thumbnail, setThumbnail] = useState('');
   const [refreshOnBack, setRefreshOnBack] = useState(false);
+  const {smallPhone, mediumPhone, isTablet} = useDeviceType();
+
+  const videoHeight = smallPhone
+    ? '240px'
+    : mediumPhone
+    ? '260px'
+    : isTablet
+    ? '480px'
+    : '240px';
+
+  const headerSize = smallPhone
+    ? '140px'
+    : mediumPhone
+    ? '180px'
+    : isTablet
+    ? '240px'
+    : '140px';
+
+  const illustrationSize = smallPhone
+    ? '180px'
+    : mediumPhone
+    ? '240px'
+    : isTablet
+    ? '320px'
+    : '180px';
 
   const loadData = useCallback(async () => {
     setIsLoading(true);
@@ -93,10 +123,26 @@ const DetailLessonsScreen = ({route, navigation}) => {
   const handleGoBackWithParams = () => {
     navigation.navigate({
       name: route.params.previousScreen || 'Lessons',
-      params: {completed: isChecked, update: refreshOnBack},
+      params: {update: refreshOnBack},
       merge: true,
     });
   };
+
+  const throttledHandleGoBack = _.throttle(handleGoBackWithParams, 1000);
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        throttledHandleGoBack();
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, [throttledHandleGoBack]),
+  );
 
   useEffect(() => {
     if (message) {
@@ -123,32 +169,39 @@ const DetailLessonsScreen = ({route, navigation}) => {
   return (
     <VStack backgroundColor="Secondary" flex={1}>
       <CustomHeader text="Detail Lesson" goBack={handleGoBackWithParams} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <LessonHeader data={data} />
-        <LessonIllustration data={data} />
-        <LessonVideo videoUri={data.video} thumbnailUri={thumbnail} />
 
-        <LessonFooter
-          isChecked={isChecked}
-          setIsChecked={setIsChecked}
-          handleNext={handleNext}
-          setMessage={setMessage}
-        />
+      <ScrollView flexGrow={1} showsVerticalScrollIndicator={false}>
+        <VStack flexGrow={1}>
+          <LessonHeader data={data} headerSize={headerSize} />
+          <LessonIllustration data={data} illustrationSize={illustrationSize} />
+          <LessonVideo
+            videoUri={data.video}
+            thumbnailUri={thumbnail}
+            videoHeight={videoHeight}
+          />
+        </VStack>
       </ScrollView>
+      <LessonFooter
+        isChecked={isChecked}
+        setIsChecked={setIsChecked}
+        handleNext={handleNext}
+        setMessage={setMessage}
+      />
     </VStack>
   );
 };
 
-const LessonHeader = ({data}) => (
+const LessonHeader = ({data, headerSize}) => (
   <VStack alignItems="center" space={2} pt={2}>
     <Center
       borderWidth={2}
       borderColor="Primary"
-      w="40%"
-      h="180px"
+      w={headerSize}
+      h={headerSize}
       rounded="lg">
       {data.cover && (
         <Image
+          resizeMode="contain"
           w="100%"
           h="100%"
           source={{uri: data.cover}}
@@ -169,19 +222,19 @@ const LessonHeader = ({data}) => (
   </VStack>
 );
 
-const LessonIllustration = ({data}) => (
+const LessonIllustration = ({data, illustrationSize}) => (
   <Stack justifyContent="center" alignItems="center" pt={4}>
     <Center
       p={2}
       borderWidth={2}
       borderColor="Primary"
-      w="80%"
-      h="280px"
+      w={illustrationSize}
+      h={illustrationSize}
       rounded="lg"
       overflow="hidden">
       {data.ilustration && (
         <Image
-          resizeMode="cover"
+          resizeMode="contain"
           size={'2xl'}
           source={{uri: data.ilustration}}
           alt="Illustration"
@@ -200,26 +253,19 @@ const LessonIllustration = ({data}) => (
   </Stack>
 );
 
-const LessonVideo = ({videoUri, thumbnailUri}) => (
+const LessonVideo = ({videoUri, thumbnailUri, videoHeight}) => (
   <HStack
-    flex={1}
     m={2}
     borderWidth={2}
     borderColor="Primary"
     overflow="hidden"
-    h="250px">
+    h={videoHeight}>
     <CustomVideoPlayer videoUri={videoUri} thumbnailUri={thumbnailUri} />
   </HStack>
 );
 
-const LessonFooter = ({
-  isChecked,
-  setIsChecked,
-  updateProgress,
-  handleNext,
-  setMessage,
-}) => (
-  <HStack p={4} space={4} flex={1} alignItems="center">
+const LessonFooter = ({isChecked, setIsChecked, handleNext, setMessage}) => (
+  <HStack p={4} space={4} alignItems="center">
     <Checkbox
       size="lg"
       value="danger"

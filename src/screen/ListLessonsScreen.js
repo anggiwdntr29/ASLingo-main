@@ -6,6 +6,9 @@ import {Get_ListLessons} from '../api/Get_Lessons';
 import {showMessage} from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {CustomHeader} from '../components';
+import {BackHandler} from 'react-native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import _ from 'lodash';
 
 const DangerIcon = () => (
   <Stack pr={1}>
@@ -13,9 +16,11 @@ const DangerIcon = () => (
   </Stack>
 );
 
-const ListLessonsScreen = ({route, navigation}) => {
+const ListLessonsScreen = ({route}) => {
   const {id} = route.params;
   const {user} = useContext(AuthContext);
+  const navigation = useNavigation();
+
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [openQuiz, setOpenQuiz] = useState(false);
@@ -26,7 +31,6 @@ const ListLessonsScreen = ({route, navigation}) => {
     setIsLoading(true);
     try {
       const response = await Get_ListLessons(id, user.auth.access_token);
-
       setData(response || []);
 
       const allDone = response?.every(item => item.is_done === 1);
@@ -68,6 +72,7 @@ const ListLessonsScreen = ({route, navigation}) => {
     }
   }, [message]);
 
+  // Define handleGoBackWithParams without useCallback
   const handleGoBackWithParams = () => {
     navigation.navigate({
       name: route.params.previousScreen || 'Class',
@@ -75,6 +80,23 @@ const ListLessonsScreen = ({route, navigation}) => {
       merge: true,
     });
   };
+
+  // Throttle handleGoBackWithParams to avoid repeated calls
+  const throttledHandleGoBack = _.throttle(handleGoBackWithParams, 1000); // 1-second delay between calls
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        throttledHandleGoBack();
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, [throttledHandleGoBack]),
+  );
 
   return (
     <VStack backgroundColor={'Secondary'} flex={1}>

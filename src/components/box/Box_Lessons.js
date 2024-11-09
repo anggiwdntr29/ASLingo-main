@@ -13,6 +13,7 @@ import {
 } from 'native-base';
 import {toUpperCase} from '../formatter';
 import {RefreshControl} from 'react-native';
+import useDeviceType from '../viewport';
 
 const Box_Lessons = ({
   navigation,
@@ -21,11 +22,37 @@ const Box_Lessons = ({
   isRefreshing,
   setMessage,
 }) => {
+  const {isTablet} = useDeviceType();
+
+  const calculateFlexBasis = emptyCount => {
+    if (isTablet) {
+      switch (emptyCount) {
+        case 1:
+          return '25%';
+        case 2:
+          return '50%';
+        case 3:
+          return '75%';
+        default:
+          return '0%';
+      }
+    } else {
+      switch (emptyCount) {
+        case 1:
+          return '50%';
+        case 2:
+          return '100%';
+        default:
+          return '0%';
+      }
+    }
+  };
+
   const mathProgress = progress => {
     return Math.round(progress);
   };
 
-  const renderItem = ({item}) => {
+  const renderItem = ({item, index}) => {
     const checkItem = () => {
       const currentIndex = data.findIndex(i => i.id === item.id);
       if (currentIndex === 0) {
@@ -50,8 +77,12 @@ const Box_Lessons = ({
     };
 
     if (item.empty) {
-      return <Box flexBasis="50%" />;
+      const emptyCount = data.slice(index).filter(i => i.empty).length;
+      const flexBasis = calculateFlexBasis(emptyCount);
+
+      return <Box flexBasis={flexBasis} />;
     }
+
     const displayedProgress = item.isQuizDone
       ? item.progress
       : Math.min(item.progress, 99);
@@ -123,6 +154,7 @@ const Box_Lessons = ({
     <View flex={1} pt={1.5}>
       {renderItem.length > 0 ? (
         <FlatList
+          key={isTablet ? 'tablet' : 'phone'}
           refreshControl={
             <RefreshControl
               refreshing={isRefreshing}
@@ -131,7 +163,7 @@ const Box_Lessons = ({
           }
           px={4}
           showsVerticalScrollIndicator={false}
-          numColumns={2}
+          numColumns={isTablet ? 4 : 2}
           data={data}
           renderItem={renderItem}
         />

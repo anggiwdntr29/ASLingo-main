@@ -11,12 +11,15 @@ import {
 import {AuthContext} from '../api/AuthContext';
 import Btn_Secondary from '../components/button/Btn_Secondary';
 import {Box_Question, CustomHeader} from '../components';
-import {RefreshControl} from 'react-native';
+import {RefreshControl, BackHandler} from 'react-native';
 import {Get_Quiz} from '../api/Get_Lessons';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import _ from 'lodash';
 
-const QuizScreen = ({navigation, route}) => {
+const QuizScreen = ({route}) => {
   const {id} = route.params;
   const {user} = useContext(AuthContext);
+  const navigation = useNavigation();
 
   const [data, setData] = useState([]);
   const [highestScore, setHighestScore] = useState(0);
@@ -30,11 +33,11 @@ const QuizScreen = ({navigation, route}) => {
     if (user.auth.access_token) {
       try {
         const response = await Get_Quiz(id, user.auth.access_token);
-
         setData(response.quiz);
         setHighestScore(response.highest_score ?? 0);
         setLatestScore(response.latest_score ?? 0);
       } catch (error) {
+        console.error('Error loading quiz data:', error);
       } finally {
         setIsLoading(false);
         setRefreshing(false);
@@ -65,6 +68,7 @@ const QuizScreen = ({navigation, route}) => {
     navigation.navigate('DetailQuiz', {id, quizData: data});
   }, [navigation, id, data]);
 
+  // Define handleGoBackWithParams without useCallback
   const handleGoBackWithParams = () => {
     navigation.navigate({
       name: route.params.previousScreen || 'Lessons',
@@ -72,6 +76,23 @@ const QuizScreen = ({navigation, route}) => {
       merge: true,
     });
   };
+
+  // Throttle the back handler to avoid repeated calls
+  const throttledHandleGoBack = _.throttle(handleGoBackWithParams, 1000); // 1-second delay between calls
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        throttledHandleGoBack();
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, [throttledHandleGoBack]),
+  );
 
   return (
     <>

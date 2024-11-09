@@ -54,11 +54,6 @@ const HomeScreen = ({route, navigation}) => {
     }
   }, [route.params?.update, fetchData, navigation]);
 
-  // const onRefresh = useCallback(() => {
-  //   setIsRefreshing(true);
-  //   fetchData();
-  // }, [fetchData]);
-
   return (
     <Stack flex={1}>
       <HeaderContent data={user} logout={logout} />
