@@ -20,6 +20,7 @@ const ListLessonsScreen = ({route, navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [openQuiz, setOpenQuiz] = useState(false);
   const [message, setMessage] = useState('');
+  const [updateClass, setUpdateClass] = useState(false);
 
   const loadData = useCallback(async () => {
     setIsLoading(true);

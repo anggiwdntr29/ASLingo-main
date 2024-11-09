@@ -39,7 +39,6 @@ const Box_ListLessons = ({
       navigation.navigate('DetailLessons', {
         id_materials: item.id,
         id,
-        handleRefresh: false,
       });
     } else {
       setMessage('Selesaikan materi sebelumnya terlebih dahulu');

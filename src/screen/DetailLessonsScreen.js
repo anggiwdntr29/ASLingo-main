@@ -37,6 +37,7 @@ const DetailLessonsScreen = ({route, navigation}) => {
 
   const [data, setData] = useState({});
   const [nextId, setNextId] = useState('');
+  const [currentMaterialId, setCurrentMaterialId] = useState(id_materials);
   const [isLoading, setIsLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [message, setMessage] = useState('');
@@ -48,20 +49,21 @@ const DetailLessonsScreen = ({route, navigation}) => {
     try {
       const response = await Get_Material(
         id,
-        id_materials,
+        currentMaterialId,
         user.auth.access_token,
       );
       setData(response.data);
       setNextId(response.next_id);
-      setIsChecked(response.data.is_done === 1);
 
       const thumbnailData = await createThumbnail({url: response.data.video});
       setThumbnail(thumbnailData.path);
+
+      setIsChecked(response.data.is_done === 1);
     } catch (error) {
       console.error(error);
     }
     setIsLoading(false);
-  }, [id, id_materials, user.auth.access_token]);
+  }, [id, currentMaterialId, user.auth.access_token]);
 
   useEffect(() => {
     loadData();
@@ -77,10 +79,10 @@ const DetailLessonsScreen = ({route, navigation}) => {
   };
 
   const handleNext = () => {
-    if (!nextId) {
-      setMessage('Selamat anda telah menyelesaikan semua materi');
+    if (nextId === null) {
+      handleGoBackWithParams();
     } else {
-      setNextId(nextId);
+      setCurrentMaterialId(nextId);
     }
   };
 
@@ -176,8 +178,8 @@ const LessonIllustration = ({data}) => (
       overflow="hidden">
       {data.ilustration && (
         <Image
-          w="100%"
-          h="100%"
+          resizeMode="cover"
+          size={'2xl'}
           source={{uri: data.ilustration}}
           alt="Illustration"
         />
