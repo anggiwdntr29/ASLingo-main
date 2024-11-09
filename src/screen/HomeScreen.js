@@ -28,7 +28,7 @@ const HomeScreen = ({navigation}) => {
 
     try {
       const response = await Home(user.auth.access_token);
-      setHomeData(response);
+      setHomeData(response.data);
 
       if (response?.recent_activity?.video) {
         await fetchThumbnail(response.recent_activity.video);

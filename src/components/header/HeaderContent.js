@@ -23,28 +23,30 @@ const HeaderContent = ({data, logout}) => {
   };
 
   return (
-    <HStack
-      backgroundColor={'Primary'}
-      px={6}
-      py={4}
-      h={20}
-      justifyContent={'space-between'}
-      alignItems={'center'}>
-      <Stack>
-        <Heading color={'Text'} fontSize={'md'} fontWeight={600}>
-          Hi, {toCapitalCase(data.user.name)}
-        </Heading>
-        <Text
-          color={'Text'}
-          fontSize={'sm'}
-          fontWeight={400}
-          letterSpacing={'lg'}>
-          What do you want to learn today?
-        </Text>
-      </Stack>
-      <Pressable onPress={() => setIsOpen(!isOpen)}>
-        <Icon name="sign-out" size={32} color={'#fff'} />
-      </Pressable>
+    <Stack>
+      <HStack
+        backgroundColor={'Primary'}
+        px={6}
+        py={4}
+        h={20}
+        alignItems={'center'}
+        justifyContent={'space-between'}>
+        <Stack>
+          <Heading color={'Text'} fontSize={'md'} fontWeight={600}>
+            Hi, {toCapitalCase(data.user.name)}
+          </Heading>
+          <Text
+            color={'Text'}
+            fontSize={'sm'}
+            fontWeight={400}
+            letterSpacing={'lg'}>
+            What do you want to learn today?
+          </Text>
+        </Stack>
+        <Pressable onPress={() => setIsOpen(!isOpen)} p={2}>
+          <Icon name="sign-out" size={28} color={'#fff'} />
+        </Pressable>
+      </HStack>
       <AlertDialog
         px={10}
         leastDestructiveRef={cancelRef}
@@ -75,7 +77,7 @@ const HeaderContent = ({data, logout}) => {
           </HStack>
         </Center>
       </AlertDialog>
-    </HStack>
+    </Stack>
   );
 };
 

@@ -19,8 +19,8 @@ const AuthProvider = ({children}) => {
     AsyncStorage.getItem('user')
       .then(userString => {
         if (userString) {
-          const data = JSON.parse(userString);
-          setUser(data);
+          const user = JSON.parse(userString);
+          setUser(user);
         }
         setLoading(false);
       })
@@ -37,10 +37,10 @@ const AuthProvider = ({children}) => {
         password,
       });
 
-      // const user = response.data;
-      setUser(response.data);
+      const user = response.data;
+      setUser(user);
 
-      if (response.data) {
+      if (user) {
         AsyncStorage.setItem('user', JSON.stringify(user));
       } else {
         AsyncStorage.removeItem('user');

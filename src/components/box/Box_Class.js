@@ -44,8 +44,8 @@ const Box_Class = ({data, navigation, isLoading}) => {
               <Skeleton key={index} h="60px" my={2} rounded="lg" />
             ))}
           </VStack>
-        ) : data && data.data && data.data.length > 0 ? (
-          data.data.map(item => (
+        ) : data && data.length > 0 ? (
+          data.map(item => (
             <Pressable
               key={item.class}
               mb={2}
@@ -58,7 +58,6 @@ const Box_Class = ({data, navigation, isLoading}) => {
                 rounded="xl"
                 space={3}>
                 <Heading
-                  w={12}
                   textAlign="left"
                   fontSize="2xl"
                   fontWeight={800}
@@ -76,24 +75,23 @@ const Box_Class = ({data, navigation, isLoading}) => {
                   </Heading>
                   <HStack
                     space={1}
-                    justifyContent={'flex-start'}
+                    justifyContent={'space-between'}
                     alignItems={'center'}>
-                    <VStack w={'82%'}>
-                      <Progress
-                        size="lg"
-                        value={item.progress}
-                        _filledTrack={{
-                          bg: 'Green',
-                        }}
-                      />
-                    </VStack>
-                    <VStack w={'18%'}>
-                      <Text fontSize={'sm'} fontWeight={600} color={'Text'}>
-                        <Text fontWeight={600}>
-                          {formatProgress(item.progress)}%
-                        </Text>
-                      </Text>
-                    </VStack>
+                    <Progress
+                      flex={1}
+                      size="lg"
+                      value={item.progress}
+                      _filledTrack={{
+                        bg: 'Green',
+                      }}
+                    />
+                    <Text
+                      fontSize={'sm'}
+                      fontWeight={600}
+                      color={'Text'}
+                      ml={2}>
+                      {formatProgress(item.progress)}%
+                    </Text>
                   </HStack>
                 </VStack>
               </HStack>
