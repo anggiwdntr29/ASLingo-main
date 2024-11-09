@@ -10,7 +10,7 @@ import {
 } from 'native-base';
 import {AuthContext} from '../api/AuthContext';
 import Btn_Secondary from '../components/button/Btn_Secondary';
-import {Box_Question} from '../components';
+import {Box_Question, CustomHeader} from '../components';
 import {RefreshControl} from 'react-native';
 import {Get_Quiz} from '../api/Get_Lessons';
 
@@ -24,6 +24,7 @@ const QuizScreen = ({navigation, route}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [expandedIndex, setExpandedIndex] = useState(null);
+  const [refreshOnBack, setRefreshOnBack] = useState(false);
 
   const loadQuizData = useCallback(async () => {
     if (user.auth.access_token) {
@@ -49,9 +50,9 @@ const QuizScreen = ({navigation, route}) => {
     if (route.params?.update) {
       setIsLoading(true);
       loadQuizData().then(() => {
-        // Reset parameter update setelah data dimuat
         navigation.setParams({update: false});
       });
+      setRefreshOnBack(true);
     }
   }, [route.params?.update, loadQuizData, navigation]);
 
@@ -64,52 +65,63 @@ const QuizScreen = ({navigation, route}) => {
     navigation.navigate('DetailQuiz', {id, quizData: data});
   }, [navigation, id, data]);
 
+  const handleGoBackWithParams = () => {
+    navigation.navigate({
+      name: route.params.previousScreen || 'Lessons',
+      params: {update: refreshOnBack},
+      merge: true,
+    });
+  };
+
   return (
-    <Stack flex={1}>
+    <>
       {isLoading ? (
         <Center flex={1}>
           <Spinner size="lg" color="Primary" />
         </Center>
       ) : (
-        <ScrollView
-          flex={1}
-          background={'Secondary'}
-          py={2}
-          px={6}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }>
-          <Stack flex={1}>
-            <ScoreDisplay
-              highestScore={highestScore}
-              latestScore={latestScore}
-            />
-            {data.map((item, index) => (
-              <Box_Question
-                key={index}
-                index={index}
-                item={item}
-                expandedIndex={expandedIndex}
-                setExpandedIndex={setExpandedIndex}
+        <Stack flex={1}>
+          <CustomHeader text={'Quiz'} goBack={handleGoBackWithParams} />
+          <ScrollView
+            flex={1}
+            background={'Secondary'}
+            py={2}
+            px={6}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
+            <Stack flex={1}>
+              <ScoreDisplay
+                highestScore={highestScore}
+                latestScore={latestScore}
               />
-            ))}
-            <Stack
-              flex={1}
-              pb={6}
-              justifyContent={'flex-end'}
-              backgroundColor={'Secondary'}
-              w={'full'}>
-              <Btn_Secondary
-                onPress={startQuiz}
-                text={'Start'}
-                boxBgColor={'Primary'}
-                textColor={'Text'}
-              />
+              {data.map((item, index) => (
+                <Box_Question
+                  key={index}
+                  index={index}
+                  item={item}
+                  expandedIndex={expandedIndex}
+                  setExpandedIndex={setExpandedIndex}
+                />
+              ))}
+              <Stack
+                flex={1}
+                pb={6}
+                justifyContent={'flex-end'}
+                backgroundColor={'Secondary'}
+                w={'full'}>
+                <Btn_Secondary
+                  onPress={startQuiz}
+                  text={'Start'}
+                  boxBgColor={'Primary'}
+                  textColor={'Text'}
+                />
+              </Stack>
             </Stack>
-          </Stack>
-        </ScrollView>
+          </ScrollView>
+        </Stack>
       )}
-    </Stack>
+    </>
   );
 };
 

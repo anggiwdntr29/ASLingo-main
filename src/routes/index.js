@@ -90,7 +90,11 @@ const Routes = () => {
         component={DetailLessonsScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="Quiz" component={QuizScreen} />
+      <Stack.Screen
+        name="Quiz"
+        component={QuizScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="DetailQuiz"
         component={DetailQuizScreen}

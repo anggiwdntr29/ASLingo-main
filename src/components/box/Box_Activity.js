@@ -4,7 +4,6 @@ import CustomVideoPlayer from '../videoPlayer';
 import {toUpperCase} from '../formatter';
 
 const Box_Activity = ({data, isLoading, thumbnail}) => {
-  console.log(data);
   return (
     <Stack px={6} py={3}>
       <Heading color={'Primary'} fontSize={'md'} fontWeight={600} mb={2}>

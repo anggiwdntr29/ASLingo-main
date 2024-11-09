@@ -37,8 +37,8 @@ const DetailLessonsScreen = ({route, navigation}) => {
 
   const [data, setData] = useState({});
   const [nextId, setNextId] = useState('');
-  const [currentMaterialId, setCurrentMaterialId] = useState(id_materials);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentMaterialId, setCurrentMaterialId] = useState(id_materials);
   const [isChecked, setIsChecked] = useState(false);
   const [message, setMessage] = useState('');
   const [thumbnail, setThumbnail] = useState('');
@@ -60,9 +60,10 @@ const DetailLessonsScreen = ({route, navigation}) => {
 
       setIsChecked(response.data.is_done === 1);
     } catch (error) {
-      console.error(error);
+      console.error('Error loading data:', error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, [id, currentMaterialId, user.auth.access_token]);
 
   useEffect(() => {
@@ -71,17 +72,20 @@ const DetailLessonsScreen = ({route, navigation}) => {
 
   const updateProgress = async () => {
     try {
-      await Progress(id, id_materials, user.auth.access_token);
+      await Progress(id, currentMaterialId, user.auth.access_token);
       setRefreshOnBack(true);
     } catch (error) {
-      console.error(error);
+      console.error('Error updating progress:', error);
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (nextId === null) {
+      await updateProgress();
+      setMessage('Selamat! Anda telah menyelesaikan materi ini.');
       handleGoBackWithParams();
     } else {
+      updateProgress();
       setCurrentMaterialId(nextId);
     }
   };
@@ -89,7 +93,7 @@ const DetailLessonsScreen = ({route, navigation}) => {
   const handleGoBackWithParams = () => {
     navigation.navigate({
       name: route.params.previousScreen || 'Lessons',
-      params: {update: refreshOnBack},
+      params: {completed: isChecked, update: refreshOnBack},
       merge: true,
     });
   };
@@ -101,7 +105,7 @@ const DetailLessonsScreen = ({route, navigation}) => {
         icon: isSuccess ? SuccessIcon : DangerIcon,
         message,
         type: isSuccess ? 'success' : 'danger',
-        titleStyle: {fontSize: 8},
+        titleStyle: {fontSize: 12},
       });
       const timer = setTimeout(() => setMessage(''), 1000);
       return () => clearTimeout(timer);
@@ -127,7 +131,6 @@ const DetailLessonsScreen = ({route, navigation}) => {
         <LessonFooter
           isChecked={isChecked}
           setIsChecked={setIsChecked}
-          updateProgress={updateProgress}
           handleNext={handleNext}
           setMessage={setMessage}
         />
@@ -203,7 +206,6 @@ const LessonVideo = ({videoUri, thumbnailUri}) => (
     m={2}
     borderWidth={2}
     borderColor="Primary"
-    rounded="lg"
     overflow="hidden"
     h="250px">
     <CustomVideoPlayer videoUri={videoUri} thumbnailUri={thumbnailUri} />
@@ -229,7 +231,6 @@ const LessonFooter = ({
       <Btn_Secondary
         onPress={() => {
           if (isChecked) {
-            updateProgress();
             handleNext();
           } else {
             setMessage('Harap checklist terlebih dahulu');
