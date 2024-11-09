@@ -19,6 +19,7 @@ const ClassScreen = ({route, navigation}) => {
   const [lessons, setLessons] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [refreshOnBack, setRefreshOnBack] = useState(false);
 
   const fetchLessons = useCallback(async () => {
     setIsLoading(true);
@@ -44,6 +45,7 @@ const ClassScreen = ({route, navigation}) => {
   useEffect(() => {
     if (route.params?.update) {
       fetchLessons();
+      setRefreshOnBack(true);
       navigation.setParams({update: false});
     }
   }, [route.params?.update, fetchLessons, navigation]);
@@ -63,9 +65,17 @@ const ClassScreen = ({route, navigation}) => {
     }
   }, [message]);
 
+  const handleGoBackWithParams = () => {
+    navigation.navigate({
+      name: route.params.previousScreen || 'Home',
+      params: {update: refreshOnBack},
+      merge: true,
+    });
+  };
+
   return (
     <Stack backgroundColor="Secondary" flex={1}>
-      <CustomHeader goBack={() => navigation.goBack()} text={'Lessons'} />
+      <CustomHeader goBack={handleGoBackWithParams} text={'Lessons'} />
       <Box_Lessons
         isRefreshing={isLoading}
         setMessage={setMessage}

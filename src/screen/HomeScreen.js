@@ -6,9 +6,10 @@ import {Box_Activity, Box_Class, HeaderContent} from '../components';
 import {RefreshControl} from 'react-native';
 import {createThumbnail} from 'react-native-create-thumbnail';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({route, navigation}) => {
   const {user, logout} = useContext(AuthContext);
   const [homeData, setHomeData] = useState(null);
+  const [activity, setActivity] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [thumbnailPath, setThumbnailPath] = useState('');
@@ -29,6 +30,7 @@ const HomeScreen = ({navigation}) => {
     try {
       const response = await Home(user.auth.access_token);
       setHomeData(response.data);
+      setActivity(response.recent_activity);
 
       if (response?.recent_activity?.video) {
         await fetchThumbnail(response.recent_activity.video);
@@ -45,17 +47,24 @@ const HomeScreen = ({navigation}) => {
     fetchData();
   }, [fetchData]);
 
-  const onRefresh = useCallback(() => {
-    setIsRefreshing(true);
-    fetchData();
-  }, [fetchData]);
+  useEffect(() => {
+    if (route.params?.update) {
+      fetchData();
+      navigation.setParams({update: false});
+    }
+  }, [route.params?.update, fetchData, navigation]);
+
+  // const onRefresh = useCallback(() => {
+  //   setIsRefreshing(true);
+  //   fetchData();
+  // }, [fetchData]);
 
   return (
     <Stack flex={1}>
       <HeaderContent data={user} logout={logout} />
       <ScrollView
         refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+          <RefreshControl refreshing={isRefreshing} onRefresh={fetchData} />
         }>
         <Box_Class
           data={homeData}
@@ -63,7 +72,7 @@ const HomeScreen = ({navigation}) => {
           navigation={navigation}
         />
         <Box_Activity
-          data={homeData}
+          data={activity}
           isLoading={isLoading}
           thumbnail={thumbnailPath}
         />

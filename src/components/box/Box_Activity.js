@@ -4,6 +4,7 @@ import CustomVideoPlayer from '../videoPlayer';
 import {toUpperCase} from '../formatter';
 
 const Box_Activity = ({data, isLoading, thumbnail}) => {
+  console.log(data);
   return (
     <Stack px={6} py={3}>
       <Heading color={'Primary'} fontSize={'md'} fontWeight={600} mb={2}>
@@ -15,27 +16,27 @@ const Box_Activity = ({data, isLoading, thumbnail}) => {
             <Skeleton h="20px" my={2} rounded="lg" />
             <Skeleton h="200px" my={2} rounded="lg" />
           </Stack>
-        ) : data.recent_activity ? (
-          <Stack h={'240px'}>
+        ) : data ? (
+          <Stack flex={1}>
             <HStack
-              h={'20%'}
+              py={3}
               space={2}
               backgroundColor={'Primary'}
               px={6}
               borderTopRadius={'lg'}
               alignItems={'center'}>
               <Heading color={'Text'} fontSize={'xl'}>
-                {toUpperCase(data.recent_activity.text_en)}
+                {toUpperCase(data.text_en)}
               </Heading>
             </HStack>
             <Stack
-              h={'80%'}
+              h={'240px'}
               borderWidth={2}
               borderColor={'Primary'}
               borderBottomRadius={'lg'}
               p={2}>
               <CustomVideoPlayer
-                videoUri={data.recent_activity.video}
+                videoUri={data.video}
                 thumbnailUri={thumbnail}
               />
             </Stack>
@@ -50,7 +51,7 @@ const Box_Activity = ({data, isLoading, thumbnail}) => {
               borderTopRadius={'lg'}
               alignItems={'center'}>
               {/* <Heading color={'Text'} fontSize={'xl'}>
-                {toUpperCase(data.recent_activity.text_en)}
+                {toUpperCase(data.text_en)}
               </Heading> */}
             </HStack>
             <Stack
@@ -63,7 +64,7 @@ const Box_Activity = ({data, isLoading, thumbnail}) => {
               p={2}>
               <Text>No Activity Recent</Text>
               {/* <CustomVideoPlayer
-                videoUri={data.recent_activity.video}
+                videoUri={data.video}
                 thumbnailUri={thumbnail}
               /> */}
             </Stack>

@@ -20,7 +20,7 @@ const ListLessonsScreen = ({route, navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [openQuiz, setOpenQuiz] = useState(false);
   const [message, setMessage] = useState('');
-  const [updateClass, setUpdateClass] = useState(false);
+  const [refreshOnBack, setRefreshOnBack] = useState(false);
 
   const loadData = useCallback(async () => {
     setIsLoading(true);
@@ -45,7 +45,7 @@ const ListLessonsScreen = ({route, navigation}) => {
   useEffect(() => {
     if (route.params?.update) {
       loadData();
-      setUpdateClass(true);
+      setRefreshOnBack(true);
       navigation.setParams({update: false});
     }
   }, [route.params?.update, loadData, navigation]);
@@ -71,7 +71,7 @@ const ListLessonsScreen = ({route, navigation}) => {
   const handleGoBackWithParams = () => {
     navigation.navigate({
       name: route.params.previousScreen || 'Class',
-      params: {update: updateClass},
+      params: {update: refreshOnBack},
       merge: true,
     });
   };
