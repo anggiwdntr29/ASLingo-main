@@ -17,20 +17,22 @@ const ListLessonsScreen = ({route, navigation}) => {
   const {id} = route.params;
   const {user} = useContext(AuthContext);
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [openQuiz, setOpenQuiz] = useState(false);
   const [message, setMessage] = useState('');
 
   const loadData = useCallback(async () => {
     setIsLoading(true);
-    if (user.auth.access_token) {
+    try {
       const response = await Get_ListLessons(id, user.auth.access_token);
 
       setData(response || []);
 
       const allDone = response?.every(item => item.is_done === 1);
       setOpenQuiz(allDone);
-
+    } catch (error) {
+      setMessage('Failed to load lessons. Please try again.');
+    } finally {
       setIsLoading(false);
     }
   }, [id, user.auth.access_token]);
@@ -39,9 +41,12 @@ const ListLessonsScreen = ({route, navigation}) => {
     loadData();
   }, [loadData]);
 
-  const handleRefresh = useCallback(() => {
-    loadData();
-  }, [loadData]);
+  useEffect(() => {
+    if (route.params?.update) {
+      loadData();
+      navigation.setParams({update: false});
+    }
+  }, [route.params?.update, loadData, navigation]);
 
   useEffect(() => {
     if (message && message !== 'hide') {
@@ -65,14 +70,13 @@ const ListLessonsScreen = ({route, navigation}) => {
     <VStack backgroundColor={'Secondary'} flex={1}>
       <CustomHeader goBack={() => navigation.goBack()} text={'Lessons'} />
       <Box_ListLessons
-        openQuiz={openQuiz}
-        setMessage={setMessage}
         isRefreshing={isLoading}
-        handleRefresh={handleRefresh}
+        setMessage={setMessage}
+        handleRefresh={loadData}
         navigation={navigation}
         id={id}
         data={data}
-        isLoading={isLoading}
+        openQuiz={openQuiz}
       />
     </VStack>
   );

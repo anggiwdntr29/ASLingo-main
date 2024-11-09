@@ -88,7 +88,7 @@ const Routes = () => {
       <Stack.Screen
         name="DetailLessons"
         component={DetailLessonsScreen}
-        options={{title: 'Detail Lessons'}}
+        options={{headerShown: false}}
       />
       <Stack.Screen name="Quiz" component={QuizScreen} />
       <Stack.Screen

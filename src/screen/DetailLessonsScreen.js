@@ -5,6 +5,7 @@ import {
   HStack,
   Heading,
   Image,
+  ScrollView,
   Spinner,
   Stack,
   VStack,
@@ -16,7 +17,7 @@ import {toLowerCase, toUpperCase} from '../components/formatter';
 import {showMessage} from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {createThumbnail} from 'react-native-create-thumbnail';
-import {CustomVideoPlayer} from '../components';
+import {CustomHeader, CustomVideoPlayer} from '../components';
 
 const DangerIcon = () => (
   <Stack pr={1}>
@@ -30,37 +31,37 @@ const SuccessIcon = () => (
   </Stack>
 );
 
-const DetailLessonsScreen = ({route}) => {
+const DetailLessonsScreen = ({route, navigation}) => {
   const {id_materials, id} = route.params;
   const {user} = useContext(AuthContext);
-  const [data, setData] = useState('');
+
+  const [data, setData] = useState({});
   const [nextId, setNextId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [currentMaterialId, setCurrentMaterialId] = useState(id_materials);
   const [isChecked, setIsChecked] = useState(false);
   const [message, setMessage] = useState('');
   const [thumbnail, setThumbnail] = useState('');
+  const [refreshOnBack, setRefreshOnBack] = useState(false);
 
   const loadData = useCallback(async () => {
     setIsLoading(true);
     try {
       const response = await Get_Material(
         id,
-        currentMaterialId,
+        id_materials,
         user.auth.access_token,
       );
       setData(response.data);
       setNextId(response.next_id);
+      setIsChecked(response.data.is_done === 1);
 
       const thumbnailData = await createThumbnail({url: response.data.video});
       setThumbnail(thumbnailData.path);
-
-      setIsChecked(response.data.is_done === 1);
     } catch (error) {
       console.error(error);
     }
     setIsLoading(false);
-  }, [id, currentMaterialId, user.auth.access_token]);
+  }, [id, id_materials, user.auth.access_token]);
 
   useEffect(() => {
     loadData();
@@ -68,18 +69,27 @@ const DetailLessonsScreen = ({route}) => {
 
   const updateProgress = async () => {
     try {
-      await Progress(id, currentMaterialId, user.auth.access_token);
+      await Progress(id, id_materials, user.auth.access_token);
+      setRefreshOnBack(true);
     } catch (error) {
       console.error(error);
     }
   };
 
   const handleNext = () => {
-    if (nextId === null) {
+    if (!nextId) {
       setMessage('Selamat anda telah menyelesaikan semua materi');
     } else {
-      setCurrentMaterialId(nextId);
+      setNextId(nextId);
     }
+  };
+
+  const handleGoBackWithParams = () => {
+    navigation.navigate({
+      name: route.params.previousScreen || 'Lessons',
+      params: {completed: isChecked, update: refreshOnBack},
+      merge: true,
+    });
   };
 
   useEffect(() => {
@@ -89,108 +99,146 @@ const DetailLessonsScreen = ({route}) => {
         icon: isSuccess ? SuccessIcon : DangerIcon,
         message,
         type: isSuccess ? 'success' : 'danger',
-        titleStyleStyle: {fontSize: 8},
+        titleStyle: {fontSize: 8},
       });
-
-      const timer = setTimeout(() => setMessage(''), 100);
-
+      const timer = setTimeout(() => setMessage(''), 1000);
       return () => clearTimeout(timer);
     }
   }, [message]);
 
+  if (isLoading) {
+    return (
+      <Center flex={1}>
+        <Spinner accessibilityLabel="Loading posts" />
+      </Center>
+    );
+  }
+
   return (
-    <>
-      {isLoading ? (
-        <Center flex={1}>
-          <Spinner accessibilityLabel="Loading posts" />
-        </Center>
-      ) : (
-        <VStack backgroundColor="Secondary" flex={1} space={2}>
-          <HStack
-            pt={2}
-            justifyContent="center"
-            alignItems="center"
-            h="20%"
-            space={2}>
-            <Center borderWidth={2} borderColor="Primary" h="100%" w="35%">
-              {data.cover ? (
-                <Image w="100%" h="100%" source={{uri: data.cover}} alt="img" />
-              ) : null}
-            </Center>
-            <HStack alignSelf="flex-end">
-              <Heading
-                italic
-                fontSize="lg"
-                fontWeight={800}
-                color="Primary"
-                letterSpacing="xl">
-                {'['}
-                {toLowerCase(data.text_id)}
-                {']'}
-              </Heading>
-            </HStack>
-          </HStack>
+    <VStack backgroundColor="Secondary" flex={1}>
+      <CustomHeader text="Detail Lesson" goBack={handleGoBackWithParams} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <LessonHeader data={data} />
+        <LessonIllustration data={data} />
+        <LessonVideo videoUri={data.video} thumbnailUri={thumbnail} />
 
-          <Stack h="34%" justifyContent="center" alignItems="center">
-            <Center borderWidth={2} borderColor="Primary" w="60%" h="100%">
-              <Center flex={1} w="100%">
-                {data.ilustration ? (
-                  <Image
-                    w="100%"
-                    h="100%"
-                    source={{uri: data.ilustration}}
-                    alt="img"
-                  />
-                ) : null}
-              </Center>
-              <Center>
-                <Heading
-                  textAlign="center"
-                  fontSize="xl"
-                  fontWeight="800"
-                  color="Primary"
-                  letterSpacing="xl">
-                  {toUpperCase(data.text_en)}
-                </Heading>
-              </Center>
-            </Center>
-          </Stack>
-
-          <HStack flex={1} m={2} borderWidth={2} borderColor="Primary">
-            <CustomVideoPlayer videoUri={data.video} thumbnailUri={thumbnail} />
-          </HStack>
-
-          <HStack p={6}>
-            <Stack w="15%" justifyContent="center" alignItems="center">
-              <Checkbox
-                size="lg"
-                value="danger"
-                isChecked={isChecked}
-                onChange={value => setIsChecked(value)}
-                aria-label="Check to mark lesson as done"
-              />
-            </Stack>
-            <Stack w="85%">
-              <Btn_Secondary
-                onPress={() => {
-                  if (isChecked) {
-                    updateProgress();
-                    handleNext();
-                  } else {
-                    setMessage('Harap checklist terlebih dahulu');
-                  }
-                }}
-                text="Next"
-                boxBgColor="Primary"
-                textColor="Text"
-                pl={2}
-              />
-            </Stack>
-          </HStack>
-        </VStack>
-      )}
-    </>
+        <LessonFooter
+          isChecked={isChecked}
+          setIsChecked={setIsChecked}
+          updateProgress={updateProgress}
+          handleNext={handleNext}
+          setMessage={setMessage}
+        />
+      </ScrollView>
+    </VStack>
   );
 };
+
+const LessonHeader = ({data}) => (
+  <VStack alignItems="center" space={2} pt={2}>
+    <Center
+      borderWidth={2}
+      borderColor="Primary"
+      w="40%"
+      h="180px"
+      rounded="lg">
+      {data.cover && (
+        <Image
+          w="100%"
+          h="100%"
+          source={{uri: data.cover}}
+          alt="Lesson Cover"
+        />
+      )}
+    </Center>
+    <Heading
+      italic
+      fontSize="lg"
+      fontWeight={800}
+      color="Primary"
+      letterSpacing="xl">
+      {'['}
+      {toLowerCase(data.text_id)}
+      {']'}
+    </Heading>
+  </VStack>
+);
+
+const LessonIllustration = ({data}) => (
+  <Stack justifyContent="center" alignItems="center" pt={4}>
+    <Center
+      p={2}
+      borderWidth={2}
+      borderColor="Primary"
+      w="80%"
+      h="280px"
+      rounded="lg"
+      overflow="hidden">
+      {data.ilustration && (
+        <Image
+          w="100%"
+          h="100%"
+          source={{uri: data.ilustration}}
+          alt="Illustration"
+        />
+      )}
+    </Center>
+    <Heading
+      textAlign="center"
+      fontSize="xl"
+      fontWeight="800"
+      color="Primary"
+      letterSpacing="xl"
+      mt={2}>
+      {toUpperCase(data.text_en)}
+    </Heading>
+  </Stack>
+);
+
+const LessonVideo = ({videoUri, thumbnailUri}) => (
+  <HStack
+    flex={1}
+    m={2}
+    borderWidth={2}
+    borderColor="Primary"
+    rounded="lg"
+    overflow="hidden"
+    h="250px">
+    <CustomVideoPlayer videoUri={videoUri} thumbnailUri={thumbnailUri} />
+  </HStack>
+);
+
+const LessonFooter = ({
+  isChecked,
+  setIsChecked,
+  updateProgress,
+  handleNext,
+  setMessage,
+}) => (
+  <HStack p={4} space={4} flex={1} alignItems="center">
+    <Checkbox
+      size="lg"
+      value="danger"
+      isChecked={isChecked}
+      onChange={setIsChecked}
+      aria-label="Check to mark lesson as done"
+    />
+    <Stack w={'full'} flex={1}>
+      <Btn_Secondary
+        onPress={() => {
+          if (isChecked) {
+            updateProgress();
+            handleNext();
+          } else {
+            setMessage('Harap checklist terlebih dahulu');
+          }
+        }}
+        text="Next"
+        boxBgColor="Primary"
+        textColor="Text"
+      />
+    </Stack>
+  </HStack>
+);
 
 export default DetailLessonsScreen;

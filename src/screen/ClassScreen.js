@@ -65,7 +65,6 @@ const ClassScreen = ({route, navigation}) => {
         handleRefresh={fetchLessons}
         navigation={navigation}
         data={lessons}
-        isLoading={isLoading}
       />
     </Stack>
   );

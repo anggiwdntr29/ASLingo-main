@@ -5,12 +5,10 @@ import {
   Heading,
   Image,
   Pressable,
-  Stack,
   Text,
   View,
 } from 'native-base';
 import React from 'react';
-import CustomSkeleton from '../skeleton';
 import {toUpperCase} from '../formatter';
 import {RefreshControl} from 'react-native';
 
@@ -18,7 +16,6 @@ const Box_ListLessons = ({
   id,
   navigation,
   data,
-  isLoading,
   handleRefresh,
   isRefreshing,
   openQuiz,
@@ -39,7 +36,11 @@ const Box_ListLessons = ({
     const isAccessible = index === 0 || data[index - 1]?.is_done;
 
     if (isAccessible) {
-      navigation.navigate('DetailLessons', {id_materials: item.id, id});
+      navigation.navigate('DetailLessons', {
+        id_materials: item.id,
+        id,
+        handleRefresh: false,
+      });
     } else {
       setMessage('Selesaikan materi sebelumnya terlebih dahulu');
     }
@@ -132,14 +133,7 @@ const Box_ListLessons = ({
 
   return (
     <View flex={1}>
-      {isLoading ? (
-        <Stack>
-          <CustomSkeleton />
-          <CustomSkeleton />
-          <CustomSkeleton />
-          <CustomSkeleton />
-        </Stack>
-      ) : modifiedData.length > 0 ? (
+      {renderItem.length > 0 ? (
         <FlatList
           refreshControl={
             <RefreshControl
@@ -151,7 +145,7 @@ const Box_ListLessons = ({
           numColumns={2}
           pt={3}
           px={4}
-          data={modifiedData} // Menggunakan modifiedData yang sudah dimodifikasi
+          data={modifiedData}
           renderItem={renderItem}
         />
       ) : (
