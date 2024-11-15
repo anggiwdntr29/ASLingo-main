@@ -8,12 +8,12 @@ const Box_Activity = ({data, isLoading, thumbnail}) => {
   const {smallPhone, mediumPhone, isTablet} = useDeviceType();
 
   const videoHeight = smallPhone
-    ? '180px'
+    ? '200px'
     : mediumPhone
     ? '240px'
     : isTablet
-    ? '400px'
-    : '240px';
+    ? '420px'
+    : '200px';
 
   return (
     <Stack px={6} py={3}>
