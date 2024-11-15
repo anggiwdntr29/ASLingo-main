@@ -19,6 +19,7 @@ import {
   ExitAlertDialog,
   FinishAlertDialog,
 } from '../components';
+import useDeviceType from '../components/viewport';
 
 const DetailQuizScreen = ({route, navigation}) => {
   const {quizData, id} = route.params;
@@ -31,9 +32,18 @@ const DetailQuizScreen = ({route, navigation}) => {
   const [showFinishAlert, setShowFinishAlert] = useState(false);
   const [showExitAlert, setShowExitAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const {smallPhone, mediumPhone, isTablet} = useDeviceType();
 
   const cancelRef = useRef(null);
   const totalSteps = quizData.length;
+
+  const videoHeight = smallPhone
+    ? '240px'
+    : mediumPhone
+    ? '260px'
+    : isTablet
+    ? '480px'
+    : '240px';
 
   const handleBackPress = () => {
     setShowExitAlert(true);
@@ -151,7 +161,7 @@ const DetailQuizScreen = ({route, navigation}) => {
             Question {currentStep + 1}
           </Text>
 
-          <Stack h={48} mb={2}>
+          <Stack h={videoHeight} mb={2}>
             <CustomVideoPlayer
               videoUri={quizData[currentStep].asset_url}
               thumbnailUri={quizData[currentStep].cover}

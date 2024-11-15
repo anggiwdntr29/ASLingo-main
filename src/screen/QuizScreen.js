@@ -15,6 +15,7 @@ import {RefreshControl, BackHandler} from 'react-native';
 import {Get_Quiz} from '../api/Get_Lessons';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import _ from 'lodash';
+import useDeviceType from '../components/viewport';
 
 const QuizScreen = ({route}) => {
   const {id} = route.params;
@@ -28,6 +29,15 @@ const QuizScreen = ({route}) => {
   const [refreshing, setRefreshing] = useState(false);
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [refreshOnBack, setRefreshOnBack] = useState(false);
+  const {smallPhone, mediumPhone, isTablet} = useDeviceType();
+
+  const videoHeight = smallPhone
+    ? '200px'
+    : mediumPhone
+    ? '240px'
+    : isTablet
+    ? '480px'
+    : '200px';
 
   const loadQuizData = useCallback(async () => {
     if (user.auth.access_token) {
@@ -118,6 +128,7 @@ const QuizScreen = ({route}) => {
               />
               {data.map((item, index) => (
                 <Box_Question
+                  videoHeight={videoHeight}
                   key={index}
                   index={index}
                   item={item}

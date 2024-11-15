@@ -3,7 +3,13 @@ import {Box, Text, Pressable, Stack, HStack} from 'native-base';
 import CustomVideoPlayer from '../videoPlayer';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Box_Question = ({index, item, expandedIndex, setExpandedIndex}) => {
+const Box_Question = ({
+  index,
+  item,
+  expandedIndex,
+  setExpandedIndex,
+  videoHeight,
+}) => {
   const isExpanded = expandedIndex === index;
   const hasUserAnswer = item.user_answer !== null;
 
@@ -37,7 +43,7 @@ const Box_Question = ({index, item, expandedIndex, setExpandedIndex}) => {
 
       {isExpanded && (
         <Box p={4} borderWidth={2} borderColor="Primary" roundedBottom="lg">
-          <Stack h={48} mb={2}>
+          <Stack h={videoHeight} mb={2}>
             <CustomVideoPlayer
               videoUri={item.asset_url}
               thumbnailUri={item.cover}
