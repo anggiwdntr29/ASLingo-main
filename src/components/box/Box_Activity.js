@@ -18,7 +18,7 @@ const Box_Activity = ({data, isLoading, thumbnail}) => {
   return (
     <Stack px={6} py={3}>
       <Heading color={'Primary'} fontSize={'md'} fontWeight={600} mb={2}>
-        Recent Activity
+        Baru Saja Dilihat
       </Heading>
       <Stack>
         {isLoading ? (

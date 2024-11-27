@@ -112,7 +112,7 @@ const QuizScreen = ({route}) => {
         </Center>
       ) : (
         <Stack flex={1}>
-          <CustomHeader text={'Quiz'} goBack={handleGoBackWithParams} />
+          <CustomHeader text={'Kuis'} goBack={handleGoBackWithParams} />
           <ScrollView
             flex={1}
             background={'Secondary'}
@@ -160,11 +160,11 @@ const QuizScreen = ({route}) => {
 const ScoreDisplay = ({highestScore, latestScore}) => (
   <Stack mb={4} space={1} justifyContent={'center'} alignItems={'center'}>
     <Heading fontSize={'xl'} fontWeight={800} color={'Primary'}>
-      Your Score
+      Nilai Kamu
     </Heading>
     <HStack w={'full'} justifyContent={'space-evenly'}>
-      <ScoreBox score={highestScore} label="Your highest score" />
-      <ScoreBox score={latestScore} label="Your latest score" />
+      <ScoreBox score={highestScore} label="Tertinggi" />
+      <ScoreBox score={latestScore} label="Terbaru" />
     </HStack>
   </Stack>
 );

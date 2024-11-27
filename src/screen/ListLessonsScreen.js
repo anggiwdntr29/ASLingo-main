@@ -100,7 +100,7 @@ const ListLessonsScreen = ({route}) => {
 
   return (
     <VStack backgroundColor={'Secondary'} flex={1}>
-      <CustomHeader goBack={handleGoBackWithParams} text={'Lessons'} />
+      <CustomHeader goBack={handleGoBackWithParams} text={'Materi'} />
       <Box_ListLessons
         isRefreshing={isLoading}
         setMessage={setMessage}

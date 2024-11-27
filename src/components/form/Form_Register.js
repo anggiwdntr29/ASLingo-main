@@ -40,7 +40,7 @@ const Form = ({
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        isInvalid={isInvalid} // Ensure it's a boolean
+        isInvalid={isInvalid}
       />
       {errors ? (
         <Text fontSize={'2xs'} fontWeight={400} color={'Danger'}>
@@ -150,13 +150,13 @@ const Form_Register = ({onRegisterSuccess, setMessage, setMessageSuccess}) => {
           <Stack space={3}>
             {/* Name Field */}
             <Form
-              text={'Name'}
+              text={'Nama'}
               value={name}
               onChangeText={value => {
                 setName(value);
                 setNameError('');
               }}
-              placeholder={'Enter your name'}
+              placeholder={'Masukan Nama kamu'}
               isInvalid={!!nameError}
               errors={nameError}
             />
@@ -169,14 +169,14 @@ const Form_Register = ({onRegisterSuccess, setMessage, setMessageSuccess}) => {
                 setEmail(value);
                 setEmailError('');
               }}
-              placeholder={'Enter your email address'}
+              placeholder={'Masukan alamat Email Kamu'}
               isInvalid={!!emailError}
               errors={emailError}
             />
 
             {/* Password Field */}
             <Form
-              text={'Password'}
+              text={'Kata Sandi'}
               type={showPassword ? 'text' : 'password'}
               InputRightElement={
                 <Pressable onPress={handleShowPassword} px={3}>
@@ -192,14 +192,14 @@ const Form_Register = ({onRegisterSuccess, setMessage, setMessageSuccess}) => {
                 setPassword(value);
                 setPasswordError('');
               }}
-              placeholder={'Enter your password'}
+              placeholder={'Masukan kata sandi kamu'}
               isInvalid={!!passwordError}
               errors={passwordError}
             />
 
             {/* Confirm Password Field */}
             <Form
-              text={'Confirm Password'}
+              text={'Konfirmasi Kata Sandi'}
               type={showPassword ? 'text' : 'password'}
               InputRightElement={
                 <Pressable onPress={handleShowPassword} px={3}>
@@ -215,7 +215,7 @@ const Form_Register = ({onRegisterSuccess, setMessage, setMessageSuccess}) => {
                 setConfirmPassword(value);
                 setConfirmPasswordError('');
               }}
-              placeholder={'Re-enter Password'}
+              placeholder={'Masukan ulang kata sandi kamu'}
               isInvalid={!!confirmPasswordError}
               errors={confirmPasswordError}
             />
@@ -226,7 +226,7 @@ const Form_Register = ({onRegisterSuccess, setMessage, setMessageSuccess}) => {
             <Btn_Primary
               isLoading={isLoading}
               onPress={handleSubmit}
-              text={'Register'}
+              text={'Daftar'}
               boxBgColor={'Secondary'}
               boxBgColorPressed={'Primary'}
               textColor={'Primary'}

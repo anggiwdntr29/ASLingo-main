@@ -21,7 +21,7 @@ const FinishAlertDialog = ({
           Batal
         </Button>
         <Button w="49%" backgroundColor="Primary" onPress={handleFinish}>
-          Kirim
+          Ya, Kirim
         </Button>
       </HStack>
     </Center>

@@ -30,6 +30,7 @@ const TabNavigator = ({navigation}) => {
         component={HomeScreen}
         options={{
           headerShown: false,
+          tabBarLabelStyle: {display: 'none'},
           tabBarIcon: renderTabBarIcon,
         }}
       />

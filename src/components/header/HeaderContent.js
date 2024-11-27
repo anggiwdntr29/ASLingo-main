@@ -40,7 +40,7 @@ const HeaderContent = ({data, logout}) => {
             fontSize={'sm'}
             fontWeight={400}
             letterSpacing={'lg'}>
-            What do you want to learn today?
+            Apa yang ingin kamu pelajari hari ini?
           </Text>
         </Stack>
         <Pressable onPress={() => setIsOpen(!isOpen)} p={2}>
@@ -59,7 +59,7 @@ const HeaderContent = ({data, logout}) => {
           rounded={'xl'}
           p={6}>
           <Heading fontSize={'md'} fontWeight={500} color={'TextBlack'} pb={4}>
-            Are your sure want to logout
+            Apakah Anda yakin ingin keluar?
           </Heading>
           <HStack w={'full'} justifyContent={'space-between'}>
             <Button
@@ -69,10 +69,10 @@ const HeaderContent = ({data, logout}) => {
               variant="outline"
               onPress={handleSubmit}
               ref={cancelRef}>
-              Yes, Logout
+              Ya, Keluar
             </Button>
             <Button w={'49%'} backgroundColor={'Primary'} onPress={onClose}>
-              No
+              Tidak
             </Button>
           </HStack>
         </Center>

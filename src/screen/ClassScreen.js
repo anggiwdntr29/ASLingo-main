@@ -96,7 +96,7 @@ const ClassScreen = ({route}) => {
 
   return (
     <Stack backgroundColor="Secondary" flex={1}>
-      <CustomHeader goBack={handleGoBackWithParams} text={'Lessons'} />
+      <CustomHeader goBack={handleGoBackWithParams} text={'Mata Pelajaran'} />
       <Box_Lessons
         isRefreshing={isLoading}
         setMessage={setMessage}

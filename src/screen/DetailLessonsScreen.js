@@ -168,7 +168,7 @@ const DetailLessonsScreen = ({route}) => {
 
   return (
     <VStack backgroundColor="Secondary" flex={1}>
-      <CustomHeader text="Detail Lesson" goBack={handleGoBackWithParams} />
+      <CustomHeader text="Isi Materi" goBack={handleGoBackWithParams} />
 
       <ScrollView flexGrow={1} showsVerticalScrollIndicator={false}>
         <VStack flexGrow={1}>

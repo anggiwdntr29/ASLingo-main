@@ -84,7 +84,7 @@ const Form_Login = ({userEmail, navigation, setMessage}) => {
                 setEmail(value);
                 setEmailError('');
               }}
-              placeholder={'Enter your email address'}
+              placeholder={'Masukan alamat Email kamu'}
               isInvalid={!!emailError}
             />
             {emailError ? (
@@ -95,7 +95,7 @@ const Form_Login = ({userEmail, navigation, setMessage}) => {
           </Stack>
           <Stack>
             <Text mb={2} fontSize={'sm'} fontWeight={600} color={'Text'}>
-              Password
+              Kata Sandi
             </Text>
             <Input
               bgColor={'Secondary'}
@@ -120,7 +120,7 @@ const Form_Login = ({userEmail, navigation, setMessage}) => {
                 setPassword(value);
                 setPasswordError('');
               }}
-              placeholder={'Enter your password'}
+              placeholder={'Masukan kata sandi kamu'}
               isInvalid={!!passwordError}
             />
             {passwordError ? (
@@ -143,7 +143,7 @@ const Form_Login = ({userEmail, navigation, setMessage}) => {
           <Btn_Primary
             isLoading={isLoading}
             onPress={handleSubmit}
-            text={'Login'}
+            text={'Masuk'}
             boxBgColor={'Secondary'}
             textColor={'Primary'}
           />

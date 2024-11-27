@@ -29,8 +29,8 @@ const OnBoardingScreen = ({navigation}) => {
           fontWeight={400}
           letterSpacing={'md'}
           textAlign={'center'}>
-          Welcome to ExpreSign! Let's start on a fun and interactive journey of
-          learning English through American Sign Language.
+          Selamat datang di ExpreSign! Mari mulai perjalanan yang menyenangkan
+          dalam belajar Bahasa Inggris melalui Bahasa Isyarat Amerika.
         </Text>
       </Stack>
       <VStack>
@@ -38,7 +38,7 @@ const OnBoardingScreen = ({navigation}) => {
           onPress={() => {
             navigation.replace('Login');
           }}
-          text={'Get Started'}
+          text={'Ayo Mulai!'}
           boxBgColor={'Secondary'}
           textColor={'Primary'}
         />

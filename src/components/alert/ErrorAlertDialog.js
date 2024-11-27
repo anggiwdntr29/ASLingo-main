@@ -13,7 +13,7 @@ const ErrorAlertDialog = ({showAlertError, cancelRef, setShowAlertError}) => (
         </Text>
         <Divider />
         <Stack py={2} px={4} space={2}>
-          <Text>Masih ada jawaban yang kosong</Text>
+          <Text>Masih ada pertanyaan yang belum ada jawaban</Text>
           <Pressable
             px={4}
             py={2}

@@ -31,7 +31,7 @@ const Box_Question = ({
           roundedTop="xl"
           roundedBottom={isExpanded ? 'none' : 'xl'}>
           <Text fontSize="lg" fontWeight={500} color="Secondary">
-            Question {index + 1}
+            Pertanyaan {index + 1}
           </Text>
           <Icon
             name={isExpanded ? 'caret-down-outline' : 'caret-forward-outline'}

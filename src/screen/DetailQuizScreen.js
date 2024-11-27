@@ -120,7 +120,7 @@ const DetailQuizScreen = ({route, navigation}) => {
     <Stack flex={1} background="Secondary">
       <Center backgroundColor="Primary" h="54px">
         <Text fontSize="lg" fontWeight={600} color="Text">
-          Quiz
+          Kuis
         </Text>
       </Center>
       <HStack justifyContent="center" alignItems="center" py={2} space={2}>
@@ -158,7 +158,7 @@ const DetailQuizScreen = ({route, navigation}) => {
       ) : (
         <Stack px={6} pt={2} flex={1} space={2}>
           <Text fontSize="lg" fontWeight={700} color="Primary">
-            Question {currentStep + 1}
+            Pertanyaan {currentStep + 1}
           </Text>
 
           <Stack h={videoHeight} mb={2}>
@@ -169,7 +169,7 @@ const DetailQuizScreen = ({route, navigation}) => {
           </Stack>
 
           <Text fontSize="md" fontWeight={600} color="Primary">
-            The correct answer is?
+            Jawaban yang benar adalah...
           </Text>
 
           <VStack flex={1} space={2}>
@@ -190,7 +190,7 @@ const DetailQuizScreen = ({route, navigation}) => {
                 fontSize="md"
                 fontWeight={700}
                 color="Primary">
-                Previous
+                Sebelumnya
               </Text>
             </Pressable>
 
@@ -217,7 +217,7 @@ const DetailQuizScreen = ({route, navigation}) => {
                 fontSize="md"
                 fontWeight={700}
                 color="Text">
-                {currentStep === totalSteps - 1 ? 'Finish' : 'Next'}
+                {currentStep === totalSteps - 1 ? 'Selesai' : 'Selanjutnya'}
               </Text>
             </Pressable>
           </HStack>

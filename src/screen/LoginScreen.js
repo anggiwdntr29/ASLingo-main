@@ -60,8 +60,8 @@ const LoginScreen = ({navigation}) => {
     <View backgroundColor={'Primary'} flex={1} px={6}>
       <Stack mt={6} mb={2}>
         <Heading fontWeight={800} color={'Text'}>
-          {showLoginForm && 'Sign in to Your Account'}
-          {showRegisterForm && 'Create an Account'}
+          {showLoginForm && 'Masuk dengan Akun kamu'}
+          {showRegisterForm && 'Buat Akun baru'}
         </Heading>
         <Text
           color={'Text'}
@@ -69,9 +69,9 @@ const LoginScreen = ({navigation}) => {
           fontWeight={400}
           textAlign={'left'}>
           {showLoginForm &&
-            "Great to see you again! Let's continue learning with ExpreSign."}
+            'Senang melihat kamu kembali! Ayo lanjutkan pelajaran dengan ExpreSign.'}
           {showRegisterForm &&
-            'Ready to learn with ExpreSign? Create your account here.'}
+            'Mulailah belajar bersama ExpreSign. Buat Akun baru kamu sekarang!'}
         </Text>
       </Stack>
       <HStack
@@ -95,7 +95,7 @@ const LoginScreen = ({navigation}) => {
             fontSize={'lg'}
             letterSpacing={'xl'}
             color={showLoginForm ? 'Primary' : 'Grey'}>
-            Login
+            Masuk
           </Text>
         </Pressable>
         <Pressable
@@ -110,7 +110,7 @@ const LoginScreen = ({navigation}) => {
             fontSize={'lg'}
             letterSpacing={'xl'}
             color={showRegisterForm ? 'Primary' : 'Grey'}>
-            Register
+            Daftar
           </Text>
         </Pressable>
       </HStack>
